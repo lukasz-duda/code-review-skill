@@ -1,0 +1,6 @@
+name: code-review
+
+services:
+  agent:
+    build: .
+    command: pi --version

@@ -2,14 +2,12 @@
 
 Code review for GitLab merge requests.
 
-[Skill](https://agentskills.io/home) examples:
+Requirements:
 
-- https://github.com/anthropics/skills
-- https://github.com/badlogic/pi-skills
-- https://github.com/open-mercato/open-mercato
+- [Docker](https://www.docker.com/)
 
-Agents:
+Start:
 
-- https://code.visualstudio.com/
-- https://opencode.ai/
-- https://pi.dev/
+```bash
+./start.sh
+```

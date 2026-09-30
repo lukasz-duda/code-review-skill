@@ -3,4 +3,10 @@ name: code-review
 services:
   agent:
     build: .
-    command: pi --version
+    environment:
+      - GITLAB_HOST=
+      - TOKEN=
+      - GROUP_ID=
+    volumes:
+      - ./entrypoint.sh:/entrypoint.sh
+    command: ./entrypoint.sh

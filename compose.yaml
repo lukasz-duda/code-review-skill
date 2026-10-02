@@ -2,11 +2,27 @@ name: code-review
 
 services:
   agent:
-    build: .
+    build:
+      context: ./agent
+      args:
+        AGENT_UID: ${LOCAL_UID:-1000}
+        AGENT_GID: ${LOCAL_GID:-1000}
+    user: "${LOCAL_UID:-1000}:${LOCAL_GID:-1000}"
     environment:
-      - GITLAB_HOST=
-      - TOKEN=
-      - GROUP_ID=
-    volumes:
-      - ./entrypoint.sh:/entrypoint.sh
-    command: ./entrypoint.sh
+      GITLAB_HOST: ${GITLAB_HOST:?Set GITLAB_HOST}
+      GITLAB_SKIP_TLS_VERIFY: ${GITLAB_SKIP_TLS_VERIFY:-false}
+    secrets:
+      - gitlab_token
+    entrypoint: [ "/usr/local/bin/entrypoint.sh" ]
+    read_only: true
+    tmpfs:
+      - /tmp
+      - /home/agent:uid=${LOCAL_UID:-1000},gid=${LOCAL_GID:-1000},mode=0700,size=256m
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+
+secrets:
+  gitlab_token:
+    file: ./gitlab_token.txt

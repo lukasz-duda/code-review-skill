@@ -25,7 +25,7 @@ USER agent
 ENV HOME="/home/agent"
 ENV PATH="/home/agent/.pi/agent/bin:$PATH"
 
-RUN curl -fsSL https://pi.dev/install.sh | sh
+RUN CI=true curl -fsSL https://pi.dev/install.sh | sh
 
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh
 COPY login.sh /usr/local/bin/login.sh

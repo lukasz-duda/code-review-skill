@@ -13,11 +13,14 @@ services:
       GITLAB_SKIP_TLS_VERIFY: ${GITLAB_SKIP_TLS_VERIFY:-false}
     secrets:
       - gitlab_token
+    volumes:
+      - ./agent/settings.json:/home/agent/.pi/agent/settings.json
+      - ./agent/models.json:/home/agent/.pi/agent/models.json
     entrypoint: [ "/usr/local/bin/entrypoint.sh" ]
-    read_only: true
-    tmpfs:
-      - /tmp
-      - /home/agent:uid=${LOCAL_UID:-1000},gid=${LOCAL_GID:-1000},mode=0700,size=256m
+    # read_only: true
+    # tmpfs:
+    #   - /tmp
+    #   - /home/agent:uid=${LOCAL_UID:-1000},gid=${LOCAL_GID:-1000},mode=0700,size=256m
     cap_drop:
       - ALL
     security_opt:

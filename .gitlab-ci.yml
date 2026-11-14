@@ -1,0 +1,12 @@
+default:
+  image: docker:27.3.1
+
+stages:
+  - publish
+
+publish:
+  stage: publish
+  script:
+    - docker build -f agent/Dockerfile -t $CI_REGISTRY_IMAGE ./agent
+    - echo $CI_JOB_TOKEN | docker login $CI_REGISTRY -u $CI_REGISTRY_USER --password-stdin
+    - docker push $CI_REGISTRY_IMAGE
